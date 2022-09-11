@@ -13,8 +13,8 @@ class GroupFormWidget extends StatelessWidget {
       ),
       body: Center(
         child: Container(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: GroupTextField(),
           ),
         ),
