@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_list/widgets/group_form/group_form_widget_model.dart';
 
 class GroupFormWidget extends StatefulWidget {
   const GroupFormWidget({Key? key}) : super(key: key);
@@ -8,14 +9,15 @@ class GroupFormWidget extends StatefulWidget {
 }
 
 class _GroupFormWidgetState extends State<GroupFormWidget> {
+  final _model = GroupFormWidgetModel();
   @override
   Widget build(BuildContext context) {
-    return const _GroupFormBody();
+    return GroupFormWidgetModelProvider(model: _model, child: const _GroupFormWidgetBody());
   }
 }
 
-class _GroupFormBody extends StatelessWidget {
-  const _GroupFormBody({Key? key}) : super(key: key);
+class _GroupFormWidgetBody extends StatelessWidget {
+  const _GroupFormWidgetBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

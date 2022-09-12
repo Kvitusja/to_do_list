@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       routes: {
         '/groups': (context) => const GroupsWidget(),
-        '/groups/form': (context) => const GroupFormWidget()
+        '/groups/form': (context) => const GroupFormWidget(),
       },
       initialRoute: '/groups',
     );
