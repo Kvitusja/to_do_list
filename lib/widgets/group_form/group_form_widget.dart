@@ -1,7 +1,21 @@
 import 'package:flutter/material.dart';
 
-class GroupFormWidget extends StatelessWidget {
+class GroupFormWidget extends StatefulWidget {
   const GroupFormWidget({Key? key}) : super(key: key);
+
+  @override
+  State<GroupFormWidget> createState() => _GroupFormWidgetState();
+}
+
+class _GroupFormWidgetState extends State<GroupFormWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return const _GroupFormBody();
+  }
+}
+
+class _GroupFormBody extends StatelessWidget {
+  const _GroupFormBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,12 +25,10 @@ class GroupFormWidget extends StatelessWidget {
         backgroundColor: const Color.fromRGBO(36, 89, 50, 0.6),
         title: const Text('New group'),
       ),
-      body: Center(
-        child: Container(
-          child: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
-            child: GroupTextField(),
-          ),
+      body: const Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: GroupTextField(),
         ),
       ),
     );
@@ -29,6 +41,10 @@ class GroupTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: const Color.fromRGBO(36, 89, 50, 0.6),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16.0),
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -38,22 +54,32 @@ class GroupTextField extends StatelessWidget {
           ),
           const Text(
             'Add your group name',
-            style: TextStyle(fontSize: 20.0),
+            style: TextStyle(
+                fontSize: 22.0,
+                color: Colors.white70,
+                fontWeight: FontWeight.bold),
           ),
           const SizedBox(
             height: 20.0,
           ),
-          const Padding(
-            padding: EdgeInsets.all(8.0),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
             child: TextField(
+              cursorColor: Colors.white70,
               //autofocus: true,
               decoration: InputDecoration(
                 hintText: 'Group name',
+                hintStyle:
+                    const TextStyle(color: Colors.white70, fontSize: 16.0),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 2.0),
+                  borderSide:
+                      const BorderSide(width: 2.0, color: Colors.white70),
+                  borderRadius: BorderRadius.circular(10.0),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 2.0),
+                  borderSide:
+                      const BorderSide(width: 2.0, color: Colors.white70),
+                  borderRadius: BorderRadius.circular(10.0),
                 ),
               ),
             ),
@@ -61,17 +87,40 @@ class GroupTextField extends StatelessWidget {
           const SizedBox(
             height: 10.0,
           ),
-          ElevatedButton(
-            style: ButtonStyle(
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Align(
+              alignment: Alignment.bottomRight,
+              child: SizedBox(
+                width: 45,
+                height: 45,
+                child: FittedBox(
+                  child: FloatingActionButton(
+                    backgroundColor: const Color.fromRGBO(36, 89, 50, 0.6),
+                    onPressed: () {},
+                    child: const Icon(Icons.done_outlined, color: Colors.white),
                   ),
                 ),
-              backgroundColor: const MaterialStatePropertyAll(Color.fromRGBO(36, 89, 50, 0.6))),
-            onPressed: () {},
-            child: const Icon(Icons.done_outline, color: Colors.black),
+              ),
+            ),
           ),
+          // Padding(
+          //   padding: const EdgeInsets.only(right: 8.0),
+          //   child: Align(
+          //     alignment: Alignment.bottomRight,
+          //     child: ElevatedButton(
+          //       style: ButtonStyle(
+          //           shape: MaterialStateProperty.all(
+          //             RoundedRectangleBorder(
+          //               borderRadius: BorderRadius.circular(50),
+          //             ),
+          //           ),
+          //         backgroundColor: MaterialStateProperty.all(const Color.fromRGBO(36, 89, 50, 0.6))),
+          //       onPressed: () {},
+          //       child: const Icon(Icons.done_outlined, color: Colors.white70),
+          //     ),
+          //   ),
+          // ),
           const SizedBox(
             height: 10.0,
           ),
