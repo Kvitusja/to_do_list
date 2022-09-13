@@ -1,9 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:to_do_list/widgets/groups/groups_widget_model.dart';
 
-class GroupsWidget extends StatelessWidget {
+class GroupsWidget extends StatefulWidget {
   const GroupsWidget({Key? key}) : super(key: key);
 
+  @override
+  State<GroupsWidget> createState() => _GroupsWidgetState();
+}
+
+class _GroupsWidgetState extends State<GroupsWidget> {
+  final model = GroupsWidgetModel();
+  @override
+  Widget build(BuildContext context) {
+    return const _GroupWidgetBody();
+  }
+}
+
+class _GroupWidgetBody extends StatelessWidget {
+  const _GroupWidgetBody({Key? key}) : super(key: key);
   void showForm(BuildContext context) {
     Navigator.of(context).pushNamed('/groups/form');
   }
@@ -27,6 +42,7 @@ class GroupsWidget extends StatelessWidget {
     );
   }
 }
+
 
 class GroupListWidget extends StatefulWidget {
   const GroupListWidget({Key? key}) : super(key: key);
