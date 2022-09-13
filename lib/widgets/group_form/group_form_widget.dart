@@ -12,7 +12,8 @@ class _GroupFormWidgetState extends State<GroupFormWidget> {
   final _model = GroupFormWidgetModel();
   @override
   Widget build(BuildContext context) {
-    return GroupFormWidgetModelProvider(model: _model, child: const _GroupFormWidgetBody());
+    return GroupFormWidgetModelProvider(
+        model: _model, child: const _GroupFormWidgetBody());
   }
 }
 
@@ -42,6 +43,7 @@ class GroupTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = GroupFormWidgetModelProvider.read(context)?.model;
     return Card(
       color: const Color.fromRGBO(36, 89, 50, 0.6),
       shape: RoundedRectangleBorder(
@@ -84,6 +86,8 @@ class GroupTextField extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10.0),
                 ),
               ),
+              onChanged: (value) => model?.groupName = value,
+              onEditingComplete: () => model?.saveGroup(context),
             ),
           ),
           const SizedBox(
@@ -99,30 +103,13 @@ class GroupTextField extends StatelessWidget {
                 child: FittedBox(
                   child: FloatingActionButton(
                     backgroundColor: const Color.fromRGBO(36, 89, 50, 0.6),
-                    onPressed: () {},
+                    onPressed: () => GroupFormWidgetModelProvider.read(context)?.model.saveGroup(context),
                     child: const Icon(Icons.done_outlined, color: Colors.white),
                   ),
                 ),
               ),
             ),
           ),
-          // Padding(
-          //   padding: const EdgeInsets.only(right: 8.0),
-          //   child: Align(
-          //     alignment: Alignment.bottomRight,
-          //     child: ElevatedButton(
-          //       style: ButtonStyle(
-          //           shape: MaterialStateProperty.all(
-          //             RoundedRectangleBorder(
-          //               borderRadius: BorderRadius.circular(50),
-          //             ),
-          //           ),
-          //         backgroundColor: MaterialStateProperty.all(const Color.fromRGBO(36, 89, 50, 0.6))),
-          //       onPressed: () {},
-          //       child: const Icon(Icons.done_outlined, color: Colors.white70),
-          //     ),
-          //   ),
-          // ),
           const SizedBox(
             height: 10.0,
           ),
