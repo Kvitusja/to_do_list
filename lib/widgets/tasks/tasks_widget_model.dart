@@ -14,15 +14,16 @@ class TasksWidgetModel extends ChangeNotifier {
   Group? get group => _group;
   TasksWidgetModel({ required this.groupKey}) {
     _setup();
-}
+  }
 
-void _loadGroup() async { 
-    final box = await _groupBox;
-    _group = box.get(groupKey);
-    notifyListeners();
-}
+  void _loadGroup() async {
+      final box = await _groupBox;
+      _group = box.get(groupKey);
+      notifyListeners();
+  }
 
-  void _readTasks(){
+  void _readTasks() {
+   //await Hive.openBox<Task>('task_box');
     _tasks = _group?.tasks ?? <Task>[];
     notifyListeners();
   }
@@ -39,6 +40,7 @@ void _loadGroup() async {
  }
 
   void deleteTask(int groupIndex) {
+    //await Hive.openBox<Task>('task_box');
     _group?.tasks?.deleteFromHive(groupIndex);
   }
 
@@ -48,6 +50,10 @@ void _loadGroup() async {
       Hive.registerAdapter(GroupAdapter());
     }
     _groupBox = Hive.openBox<Group>('group_box');
+    if (!Hive.isAdapterRegistered(2)) {
+      Hive.registerAdapter(TaskAdapter());
+    }
+    Hive.openBox<Task>('task_box');
     _loadGroup();
     _setupListenTask();
   }

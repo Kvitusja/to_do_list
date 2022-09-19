@@ -39,83 +39,81 @@ class TaskWidgetBody extends StatelessWidget {
     final model = TasksWidgetModelProvider.watch(context)?.model;
     model?.group?.name ?? 'stuff';
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: const Color.fromRGBO(36, 89, 50, 0.6),
+        onPressed: () => model!.showTasksForm(context),
+        child: const Icon(Icons.add, color: Colors.white),
+      ),
       backgroundColor: Colors.greenAccent,
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(36, 89, 50, 0.6),
         title: (const Text('Tasks')),
       ),
-      body: Align(
-        alignment: Alignment.bottomRight,
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: FloatingActionButton(
-            backgroundColor: const Color.fromRGBO(36, 89, 50, 0.6),
-            onPressed: () => model!.showTasksForm(context),
-            child: const Icon(Icons.add, color: Colors.white),
+      body: const _TaskListWidget(),
+    );
+  }
+}
+
+class _TaskListWidget extends StatelessWidget {
+  const _TaskListWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final groupsCount =
+        TasksWidgetModelProvider.watch(context)?.model.tasks.length ?? 0;
+    return ListView.separated(
+        itemCount: groupsCount,
+        separatorBuilder: (BuildContext context, int index) =>
+            TaskListRowWidget(
+              indexInList: index + 1,
+            ),
+        itemBuilder: (BuildContext context, int index) {
+          return const Divider(
+            color: Colors.white10,
+          );
+        });
+  }
+}
+
+class TaskListRowWidget extends StatelessWidget {
+  final int indexInList;
+  const TaskListRowWidget({Key? key, required this.indexInList})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final model = TasksWidgetModelProvider.read(context)!.model;
+    final task = model.tasks[indexInList];
+    return Slidable(
+      endActionPane: ActionPane(
+        motion: const DrawerMotion(),
+        children: [
+          SlidableAction(
+            backgroundColor: Colors.red,
+            borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(16.0),
+                bottomRight: Radius.circular(16.0)),
+            flex: 4,
+            onPressed: (context) => model.deleteTask(indexInList),
+            icon: Icons.delete,
           ),
+        ],
+      ),
+      child: Container(
+        margin: const EdgeInsets.only(left: 8.0),
+        height: 120,
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16.0),
+              bottomLeft: Radius.circular(16.0)),
+          color: Color.fromRGBO(36, 89, 50, 0.6),
+        ),
+        child: ListTile(
+          title: Text(task.text),
+          trailing: const Icon(Icons.chevron_right_outlined),
+          onTap: () {},
         ),
       ),
     );
   }
 }
-
-// class _TaskListWidget extends StatelessWidget {
-//   const _TaskListWidget({Key? key}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     final groupsCount = TasksWidgetModelProvider.watch(context)?.model.tasks.length ?? 0;
-//     return ListView.separated(
-//         itemCount: groupsCount ,
-//         separatorBuilder: (BuildContext context, int index) => GroupRowWidget(
-//           indexInList: index + 1,
-//         ),
-//         itemBuilder: (BuildContext context, int index) {
-//           return const Divider(
-//             color: Colors.white10,
-//           );
-//         });
-//   }
-// }
-//
-// class GroupRowWidget extends StatelessWidget {
-//   final int indexInList;
-//   const GroupRowWidget({Key? key, required this.indexInList}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     final model = TasksWidgetModelProvider.read(context)!.model;
-//     final group = model.tasks[indexInList];
-//     return Slidable(
-//       endActionPane: ActionPane(
-//         motion: const DrawerMotion(),
-//         children: [
-//           SlidableAction(
-//             backgroundColor: Colors.red,
-//             borderRadius: const BorderRadius.only(
-//                 topRight: Radius.circular(16.0),
-//                 bottomRight: Radius.circular(16.0)),
-//             flex: 4,
-//             onPressed: (context) => model.deleteTask(indexInList),
-//             icon: Icons.delete,
-//           ),
-//         ],
-//       ),
-//       child: Container(
-//         margin: const EdgeInsets.only(left: 8.0),
-//         height: 120,
-//         decoration: const BoxDecoration(
-//           borderRadius: BorderRadius.only(
-//               topLeft: Radius.circular(16.0),
-//               bottomLeft: Radius.circular(16.0)),
-//           color: Color.fromRGBO(36, 89, 50, 0.6),
-//         ),
-//         child: ListTile(
-//           title: Text(),
-//           trailing: const Icon(Icons.chevron_right_outlined),
-//           onTap:() => model.showTasks(context, indexInList),
-//         ),
-//       ),
-//     );
-//   }
-// }
