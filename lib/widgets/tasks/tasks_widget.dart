@@ -84,6 +84,13 @@ class TaskListRowWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = TasksWidgetModelProvider.read(context)!.model;
     final task = model.tasks[indexInList];
+    final icon = task.isDone
+        ? const Icon(Icons.check_box_outlined)
+        : const Icon(Icons.check_box_outline_blank);
+    final style = task.isDone
+        ? const TextStyle(decoration: TextDecoration.lineThrough)
+        : null;
+
     return Slidable(
       endActionPane: ActionPane(
         motion: const DrawerMotion(),
@@ -101,7 +108,7 @@ class TaskListRowWidget extends StatelessWidget {
       ),
       child: Container(
         margin: const EdgeInsets.only(left: 8.0),
-        height: 120,
+        height: 70,
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(16.0),
@@ -109,9 +116,12 @@ class TaskListRowWidget extends StatelessWidget {
           color: Color.fromRGBO(36, 89, 50, 0.6),
         ),
         child: ListTile(
-          title: Text(task.text),
-          trailing: const Icon(Icons.chevron_right_outlined),
-          onTap: () {},
+          title: Text(
+            task.text,
+            style: style,
+          ),
+          trailing: icon,
+          onTap: () => model.doneToggle(indexInList),
         ),
       ),
     );

@@ -39,11 +39,20 @@ class TasksWidgetModel extends ChangeNotifier {
     box.listenable(keys: <dynamic>[groupKey]).addListener(_readTasks);
  }
 
-  void deleteTask(int groupIndex) {
-    //await Hive.openBox<Task>('task_box');
-    _group?.tasks?.deleteFromHive(groupIndex);
+  void deleteTask(int groupIndex) async {
+    await Hive.openBox<Task>('task_box');
+    await _group?.tasks?.deleteFromHive(groupIndex);
+    await _group?.save();
   }
 
+  void doneToggle(int groupIndex) async {
+    await Hive.openBox<Task>('task_box');
+    final task = group?.tasks?[groupIndex];
+    final currentState = task?.isDone ?? false;
+    task?.isDone = !currentState;
+    await task?.save();
+    notifyListeners();
+  }
 
   void _setup() {
     if (!Hive.isAdapterRegistered(1)) {
