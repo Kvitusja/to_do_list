@@ -87,7 +87,7 @@ class GroupRowWidget extends StatelessWidget {
       ),
       child: Container(
         margin: const EdgeInsets.only(left: 8.0),
-        height: 120,
+        height: 70,
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(16.0),
@@ -95,8 +95,8 @@ class GroupRowWidget extends StatelessWidget {
           color: Color.fromRGBO(36, 89, 50, 0.6),
         ),
         child: ListTile(
-          title: Text(group.name),
-          trailing: const Icon(Icons.chevron_right_outlined),
+          title: Text(group.name, style: const TextStyle(color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.w500),),
+          trailing: const Icon(Icons.chevron_right_outlined, color: Colors.white,),
           onTap:() => model.showTasks(context, indexInList),
         ),
       ),

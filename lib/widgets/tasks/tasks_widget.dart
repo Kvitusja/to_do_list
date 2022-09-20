@@ -62,14 +62,15 @@ class _TaskListWidget extends StatelessWidget {
     final groupsCount =
         TasksWidgetModelProvider.watch(context)?.model.tasks.length ?? 0;
     return ListView.separated(
+        padding: const EdgeInsets.only(top: 15),
         itemCount: groupsCount,
-        separatorBuilder: (BuildContext context, int index) =>
-            TaskListRowWidget(
-              indexInList: index + 1,
-            ),
+        separatorBuilder: (BuildContext context, int index) =>  const Divider(
+          color: Colors.white10,
+        ),
+
         itemBuilder: (BuildContext context, int index) {
-          return const Divider(
-            color: Colors.white10,
+          return TaskListRowWidget(
+            indexInList: index,
           );
         });
   }
@@ -85,11 +86,11 @@ class TaskListRowWidget extends StatelessWidget {
     final model = TasksWidgetModelProvider.read(context)!.model;
     final task = model.tasks[indexInList];
     final icon = task.isDone
-        ? const Icon(Icons.check_box_outlined)
-        : const Icon(Icons.check_box_outline_blank);
+        ? const Icon(Icons.check_box_outlined, color: Colors.white,)
+        : const Icon(Icons.check_box_outline_blank, color: Colors.white,);
     final style = task.isDone
-        ? const TextStyle(decoration: TextDecoration.lineThrough)
-        : null;
+        ? const TextStyle(decoration: TextDecoration.lineThrough, color: Colors.white)
+        : const TextStyle( color: Colors.white);
 
     return Slidable(
       endActionPane: ActionPane(

@@ -69,6 +69,7 @@ class GroupTextField extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
+              style: const TextStyle(color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.w500),
               cursorColor: Colors.white70,
               //autofocus: true,
               decoration: InputDecoration(

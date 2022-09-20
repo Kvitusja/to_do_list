@@ -23,7 +23,7 @@ class TasksWidgetModel extends ChangeNotifier {
   }
 
   void _readTasks() {
-   //await Hive.openBox<Task>('task_box');
+    Hive.openBox<Task>('task_box');
     _tasks = _group?.tasks ?? <Task>[];
     notifyListeners();
   }
@@ -65,6 +65,7 @@ class TasksWidgetModel extends ChangeNotifier {
     Hive.openBox<Task>('task_box');
     _loadGroup();
     _setupListenTask();
+
   }
 }
 

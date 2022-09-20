@@ -29,6 +29,7 @@ class TaskFormWidgetModel {
     final groupBox = await Hive.openBox<Group>('group_box');
     final group = groupBox.get(groupKey);
     group?.addTask(taskBox, task);
+    // notifyListeners();
     //await groupBox.add(group!);
 
 

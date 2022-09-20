@@ -14,6 +14,7 @@ class Group extends HiveObject{
   Group({required this.name});
 
   void addTask(Box<Task> box, Task task) {
+
     tasks ??= HiveList(box);
     tasks?.add(task);
     save();

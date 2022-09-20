@@ -62,6 +62,7 @@ class TaskTextField extends StatelessWidget {
     final model = TaskFormWidgetModelProvider.read(context)?.model;
     return
         TextField(
+
           style: const TextStyle(color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.w500),
           maxLines: null,
           minLines: null,
