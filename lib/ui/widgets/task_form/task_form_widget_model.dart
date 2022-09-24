@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:to_do_list/domain/entity/task.dart';
-import '../../domain/entity/group.dart';
+import '../../../domain/entity/group.dart';
 
 class TaskFormWidgetModel {
   int groupKey;
