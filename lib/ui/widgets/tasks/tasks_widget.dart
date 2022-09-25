@@ -2,9 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:to_do_list/ui/widgets/tasks/tasks_widget_model.dart';
 
-class TasksWidget extends StatefulWidget {
+class TaskWidgetConfiguration {
   final int groupKey;
-  const TasksWidget({Key? key, required this.groupKey}) : super(key: key);
+
+  TaskWidgetConfiguration(this.groupKey);
+}
+
+
+class TasksWidget extends StatefulWidget {
+  final TaskWidgetConfiguration configuration;
+  const TasksWidget({Key? key, required this.configuration}) : super(key: key);
 
   @override
   State<TasksWidget> createState() => _TasksWidgetState();
@@ -16,8 +23,7 @@ class _TasksWidgetState extends State<TasksWidget> {
   @override
   void initState() {
     super.initState();
-    widget.groupKey;
-    _model = TasksWidgetModel(groupKey: widget.groupKey);
+    _model = TasksWidgetModel(configuration: widget.configuration);
   }
 
   // @override
@@ -45,7 +51,6 @@ class TaskWidgetBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = TasksWidgetModelProvider.watch(context)?.model;
-    model?.group?.name ?? 'stuff';
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromRGBO(36, 89, 50, 0.6),
@@ -98,7 +103,7 @@ class TaskListRowWidget extends StatelessWidget {
         : const Icon(Icons.check_box_outline_blank, color: Colors.white,);
     final style = task.isDone
         ? const TextStyle(decoration: TextDecoration.lineThrough, color: Colors.white)
-        : const TextStyle( color: Colors.white);
+        : const TextStyle(color: Colors.white);
 
     return Slidable(
       endActionPane: ActionPane(
