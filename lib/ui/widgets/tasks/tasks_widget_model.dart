@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -11,6 +12,7 @@ import '../../navigation/main_navigation.dart';
 
 class TasksWidgetModel extends ChangeNotifier {
   late final Future<Box<Task>> _box;
+  ValueListenable<Object>? _listenableBox;
   TaskWidgetConfiguration configuration;
   var _tasks = <Task>[];
 
@@ -43,12 +45,14 @@ class TasksWidgetModel extends ChangeNotifier {
   Future<void> doneToggle(int taskIndex) async {
     final task = (await _box).getAt(taskIndex);
     task?.isDone = !task.isDone;
+    notifyListeners();
   }
 
   Future<void> _setup() async {
     _box = BoxManager.instance.openTaskBox(configuration.groupKey);
     await _readTasksFromHive();
-    (await _box).listenable().addListener(_readTasksFromHive);
+    _listenableBox = (await _box).listenable();
+    _listenableBox?.addListener(_readTasksFromHive);
   }
 }
 
