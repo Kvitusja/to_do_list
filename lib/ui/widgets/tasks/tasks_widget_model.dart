@@ -45,7 +45,7 @@ class TasksWidgetModel extends ChangeNotifier {
   Future<void> doneToggle(int taskIndex) async {
     final task = (await _box).getAt(taskIndex);
     task?.isDone = !task.isDone;
-    notifyListeners();
+    task?.save();
   }
 
   Future<void> _setup() async {
@@ -54,6 +54,15 @@ class TasksWidgetModel extends ChangeNotifier {
     _listenableBox = (await _box).listenable();
     _listenableBox?.addListener(_readTasksFromHive);
   }
+
+  @override
+  Future<void> dispose() async{
+    _listenableBox?.removeListener(_readTasksFromHive);
+    await BoxManager.instance.closeBox((await _box));
+    super.dispose();
+  }
+
+
 }
 
 
