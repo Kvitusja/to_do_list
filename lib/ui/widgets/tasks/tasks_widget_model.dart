@@ -54,6 +54,14 @@ class TasksWidgetModel extends ChangeNotifier {
     _listenableBox = (await _box).listenable();
     _listenableBox?.addListener(_readTasksFromHive);
   }
+
+  @override
+  void dispose() async{
+    _listenableBox?.removeListener(_readTasksFromHive);
+    await BoxManager.instance.closeBox(await _box);
+    super.dispose();
+  }
+
 }
 
 

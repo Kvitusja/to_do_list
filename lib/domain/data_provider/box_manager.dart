@@ -26,7 +26,7 @@ class BoxManager {
   Future<Box<T>> _openBox<T>(
       TypeAdapter<T> adapter,
       String name,
-      int typeID
+      int typeID,
       )
   async {
     if (!Hive.isAdapterRegistered(typeID)) {

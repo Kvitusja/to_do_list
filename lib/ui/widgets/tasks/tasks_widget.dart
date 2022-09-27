@@ -26,6 +26,12 @@ class _TasksWidgetState extends State<TasksWidget> {
     _model = TasksWidgetModel(configuration: widget.configuration);
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    _model.dispose();
+  }
+
   // @override
   // void didChangeDependencies() {
   //   super.didChangeDependencies();
