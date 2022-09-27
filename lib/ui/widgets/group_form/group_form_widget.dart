@@ -69,7 +69,10 @@ class GroupTextField extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
-              style: const TextStyle(color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.w500),
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w500),
               cursorColor: Colors.white70,
               //autofocus: true,
               decoration: InputDecoration(
@@ -104,7 +107,9 @@ class GroupTextField extends StatelessWidget {
                 child: FittedBox(
                   child: FloatingActionButton(
                     backgroundColor: const Color.fromRGBO(36, 89, 50, 0.6),
-                    onPressed: () => GroupFormWidgetModelProvider.read(context)?.model.saveGroup(context),
+                    onPressed: () => GroupFormWidgetModelProvider.read(context)
+                        ?.model
+                        .saveGroup(context),
                     child: const Icon(Icons.done_outlined, color: Colors.white),
                   ),
                 ),

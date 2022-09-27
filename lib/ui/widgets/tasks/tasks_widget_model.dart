@@ -56,7 +56,7 @@ class TasksWidgetModel extends ChangeNotifier {
   }
 
   @override
-  void dispose() async{
+  Future<void> dispose() async{
     _listenableBox?.removeListener(_readTasksFromHive);
     await BoxManager.instance.closeBox(await _box);
     super.dispose();
